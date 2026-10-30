@@ -1,1 +1,50 @@
 
+
+#include <iostream>
+using namespace std;
+
+class AccountClass
+{
+public:
+    virtual void SendMoney()
+    {
+        cout << "Sending Money Allowed" << endl;
+    }
+
+    virtual void ReceiveMoney()
+    {
+        cout << "Receiving Money Allowed" << endl;
+    }
+};
+
+class ConsumerAccountClass : public AccountClass
+{
+public:
+    void SendMoney() override
+    {
+        cout << "Account Flagged! Cannot Send Money" << endl;
+    }
+
+    void ReceiveMoney() override
+    {
+        cout << "Can Receive Money" << endl;
+    }
+};
+
+int main()
+{
+    ConsumerAccountClass user;
+
+    // Upcasting
+    AccountClass *ptr = &user;
+
+    ptr->SendMoney();
+    ptr->ReceiveMoney();
+
+    // Downcasting
+    ConsumerAccountClass *ptr2 = dynamic_cast<ConsumerAccountClass*>(ptr);
+
+    ptr2->SendMoney();
+
+    return 0;
+}
